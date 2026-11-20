@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Node Version') {
+        stage('Check Node Version') {
             steps {
                 sh 'node --version'
                 sh 'npm --version'
@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Application') {
             steps {
                 sh 'npm run build'
             }
@@ -42,11 +42,11 @@ pipeline {
 
     post {
         success {
-            echo 'Node.js CI/CD Pipeline Successful!'
+            echo 'Node.js Pipeline Successful!'
         }
 
         failure {
-            echo 'Pipeline Failed!'
+            echo 'Node.js Pipeline Failed!'
         }
     }
 }
