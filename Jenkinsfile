@@ -1,48 +1,52 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
+
     stages {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out Node.js project...'
+                echo 'Checking out source code'
                 checkout scm
             }
         }
 
-        stage('Check Node.js and npm') {
+        stage('Node Version') {
             steps {
-                bat 'node --version'
-                bat 'npm --version'
+                sh 'node --version'
+                sh 'npm --version'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                sh 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'npm test'
+                sh 'npm test'
             }
         }
 
-        stage('Build Application') {
+        stage('Build') {
             steps {
-                bat 'npm run build'
+                sh 'npm run build'
             }
         }
     }
 
     post {
         success {
-            echo 'Node.js Pipeline executed successfully!'
+            echo 'Node.js CI/CD Pipeline Successful!'
         }
 
         failure {
-            echo 'Node.js Pipeline failed!'
+            echo 'Pipeline Failed!'
         }
     }
 }
